@@ -12,14 +12,15 @@ public class Stats : MonoBehaviour
 {
     //[HideInInspector]
     public int level;
-    //[HideInInspector]
+    [HideInInspector]
     public int xp;
-    //[HideInInspector]
+    [HideInInspector]
     public int style, luck, rhythm;
 
     private void Awake()
     {
         //assign initial stats
         StatsGenerator.InitialStats(this);
+        Debug.Log("Lv: " + level + " |  Style: " + style + " Luck: " + luck + " Rhythm: " + rhythm);
     }
 }

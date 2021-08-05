@@ -1,0 +1,13 @@
+{
+    "FormattingOptions": {
+        "organizeImports": false,
+        "UseTabs": false,
+        "TabSize": 4,
+        "IndentationSize": 4,
+        "SpaceAfterComma": true,
+        "NewLineForElse": true,
+        "NewLineForCatch": true,
+        "NewLineForFinally": true,
+        "NewLineForMembersInObjectInit": true
+    }
+}
