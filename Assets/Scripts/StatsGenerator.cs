@@ -12,6 +12,9 @@ using UnityEngine;
 /// </summary>
 public static class StatsGenerator
 {
+    /// <summary>
+    /// A dictionary of each level that characters can acheive, and the stats that are associated with them.
+    /// </summary>
     public static Dictionary<int, List<int>> statsBlock = new Dictionary<int, List<int>>()
     {
     // Level Number -- Style / Luck / Rhythm
@@ -26,13 +29,36 @@ public static class StatsGenerator
         { 9, new List<int>() {9, 6, 4}},
         { 10, new List<int>() {10, 7, 5}}
     };
-    public static void InitialStats(Stats stats)
+
+    public static void InitialStats(Stats stats, bool isPlayer)
     {
+        // Enforce a level 1 or higher, and no higher then 10
         if (stats.level <= 0) { stats.level = 1; }
+        else if (stats.level >= 10) { stats.level = 10; }
+        // get stats from statsBlock.
         statsBlock.TryGetValue(stats.level, out List<int> initStats);
-        stats.style = initStats[0];
-        stats.luck = initStats[1];
-        stats.rhythm = initStats[2];
+        // apply stats with modifiers to the stats object.
+        // If newly generated stats are less then 0, revert to original number.
+        if (isPlayer)
+        { // Player will not have any random modifiers in stats.
+            stats.style = initStats[0];
+            stats.luck = initStats[1];
+            stats.rhythm = initStats[2];
+        }
+        else
+        {
+            // generate random modifers for stats.
+            var randomValues = new List<int>
+            {
+                Mathf.RoundToInt(Random.Range(-2, 2)),
+                Mathf.RoundToInt(Random.Range(-2, 2)),
+                Mathf.RoundToInt(Random.Range(-2, 2))
+            };
+            stats.style = initStats[0] + randomValues[0] < 1 ? 1 : initStats[0];
+            stats.luck = initStats[1] + randomValues[1] < 1 ? 1 : initStats[1];
+            stats.rhythm = initStats[2] + randomValues[2] < 1 ? 1 : initStats[2];
+        }
+
     }
 
     public static void AssignUnusedPoints(Stats stats, int points)

@@ -20,7 +20,8 @@ public class Stats : MonoBehaviour
     private void Awake()
     {
         //assign initial stats
-        StatsGenerator.InitialStats(this);
+        bool isPlayer = GetComponent<Player>();
+        StatsGenerator.InitialStats(this, isPlayer);
         Debug.Log("Lv: " + level + " |  Style: " + style + " Luck: " + luck + " Rhythm: " + rhythm);
     }
 }
