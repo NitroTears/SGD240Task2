@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     private PlayerController controller;
     private Animator anim;
 
+    private bool isDancing;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -36,7 +38,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(currentOpponent != null)
+        if(currentOpponent != null && !isDancing)
         {
             //currently colliding with an NPC
             if (Input.GetKeyDown(KeyCode.Space))
@@ -48,6 +50,7 @@ public class Player : MonoBehaviour
 
     IEnumerator DanceOff()
     {
+        isDancing = true;
         BattleEventData data = new BattleEventData(myStats, currentOpponent.myStats);
         GameEvents.BeginBattle(data);
         controller.enabled = false;
@@ -61,6 +64,7 @@ public class Player : MonoBehaviour
         BattleHandler.Battle(data);
         controller.enabled = true;
         currentOpponent.transform.LookAt(transform.position + Vector3.forward);
+        isDancing = false;
     }
 
     //Check for colliding with NPC, can then interact, 
