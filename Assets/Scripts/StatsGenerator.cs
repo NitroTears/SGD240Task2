@@ -6,7 +6,6 @@ using UnityEngine;
 ///  A <see langword="static"/> class with methods (functions) for initialising or randomising the stats class.
 ///  
 /// TODO:
-///     Initialise a stats instance with generated starting stats
 ///     Handle the assignment of extra points or xp into an existing stats of a character
 ///         - this is expected to be used by NPCs leveling up to match the player.
 /// </summary>
@@ -19,15 +18,30 @@ public static class StatsGenerator
     {
     // Level Number -- Style / Luck / Rhythm
         { 1, new List<int>() {1, 1, 1}},
-        { 2, new List<int>() {2, 2, 1}},
-        { 3, new List<int>() {3, 3, 1}},
-        { 4, new List<int>() {4, 3, 2}},
-        { 5, new List<int>() {5, 4, 2}},
-        { 6, new List<int>() {6, 4, 3}},
-        { 7, new List<int>() {7, 5, 3}},
-        { 8, new List<int>() {8, 5, 4}},
-        { 9, new List<int>() {9, 6, 4}},
-        { 10, new List<int>() {10, 7, 5}}
+        { 2, new List<int>() {3, 1, 2}},
+        { 3, new List<int>() {5, 1, 3}},
+        { 4, new List<int>() {6, 1, 4}},
+        { 5, new List<int>() {8, 1, 5}},
+        { 6, new List<int>() {10, 2, 6}},
+        { 7, new List<int>() {12, 2, 7}},
+        { 8, new List<int>() {14, 2, 8}},
+        { 9, new List<int>() {15, 3, 9}},
+        { 10, new List<int>() {17, 3, 9}}
+    };
+
+    public static Dictionary<int, int> levelThresBlock = new Dictionary<int, int>()
+    {
+    // Level Number -- Style / Luck / Rhythm
+        { 1, 200},
+        { 2, 400},
+        { 3, 600},
+        { 4, 850},
+        { 5, 1100},
+        { 6, 1350},
+        { 7, 1650},
+        { 8, 1900},
+        { 9, 2200},
+        { 10, 2500}
     };
 
     public static void InitialStats(Stats stats, bool isPlayer)
@@ -39,6 +53,8 @@ public static class StatsGenerator
         statsBlock.TryGetValue(stats.level, out List<int> initStats);
         // apply stats with modifiers to the stats object.
         // If newly generated stats are less then 0, revert to original number.
+        levelThresBlock.TryGetValue(stats.level - 1, out int startingXP);
+        stats.xp = startingXP;
         if (isPlayer)
         { // Player will not have any random modifiers in stats.
             stats.style = initStats[0];
@@ -58,8 +74,8 @@ public static class StatsGenerator
             stats.luck = initStats[1] + randomValues[1] < 1 ? 1 : initStats[1];
             stats.rhythm = initStats[2] + randomValues[2] < 1 ? 1 : initStats[2];
         }
-
     }
+
 
     public static void AssignUnusedPoints(Stats stats, int points)
     {

@@ -15,9 +15,23 @@ public static class BattleHandler
 {
     public static void Battle(BattleEventData data)
     {
-        //This needs to be replaced with some actual battle logic, at present 
-        // we just award the maximum possible win to the player
-        float outcome = 1;
+        float outcome;
+        var playerTotal = data.player.style + data.player.luck + data.player.rhythm * (Random.Range(0f, data.player.luck / 10) + 1);
+        var npcTotal = data.npc.style + data.npc.luck + data.npc.rhythm * (Random.Range(0f, data.npc.luck / 10) + 1);
+        // decide the outcome value based on the difference between player and npc total values
+        var combatTotal = playerTotal - npcTotal;
+        Debug.Log(playerTotal + " - " + npcTotal + " = " + combatTotal);
+        if (combatTotal > 0)
+        {
+            outcome = combatTotal / 4 > 1 ? 1 : combatTotal / 4; //If more then 1, round back to 1.
+            Debug.Log(outcome);
+        }
+        else if (combatTotal < 0)
+        {
+            outcome = combatTotal / 4 < 1 ? -1 : combatTotal / 4; //If less then -1, round back to -1.
+            Debug.Log(outcome);
+        }
+        else { outcome = 0; }
 
         var results = new BattleResultEventData(data.player, data.npc, outcome);
 
