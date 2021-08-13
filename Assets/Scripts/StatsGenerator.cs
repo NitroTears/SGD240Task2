@@ -76,9 +76,19 @@ public static class StatsGenerator
         }
     }
 
-
+    // This method is used to boost NPC's stats a little bit whenever the player levels up.
     public static void AssignUnusedPoints(Stats stats, int points)
     {
-
+        for (int i = 0; i < points; i++)
+        {
+            if (i % 2 == 0)
+            {
+                stats.style = +1;
+            }
+            else
+            {
+                stats.rhythm = +1;
+            }
+        }
     }
 }

@@ -36,8 +36,8 @@ public class NPC : MonoBehaviour
 
     void LevelUp(int level)
     {
-        Debug.Log("NPC Level Up!");
-        myStats.level = level;
-        StatsGenerator.AssignUnusedPoints(myStats, 5);
+        Debug.Log("NPC Stats Rose!");
+        //myStats.level = level;
+        StatsGenerator.AssignUnusedPoints(myStats, 4);
     }
 }
