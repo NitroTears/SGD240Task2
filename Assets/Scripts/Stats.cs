@@ -36,6 +36,10 @@ public class Stats : MonoBehaviour
     {
         GameEvents.OnPlayerGainXP -= addXpToTotal;
     }
+    /// <summary>
+    /// Addeds the given xp to the total xp of this stats object.
+    /// Will increase the level if the xp threshold is met.
+    /// </summary>
     public void addXpToTotal(int xp)
     {
         if (isPlayer) // XP and Levels are for the Player only.
@@ -43,6 +47,7 @@ public class Stats : MonoBehaviour
             Debug.Log($"{this.xp} + {xp} = {this.xp + xp}");
             this.xp += xp; // add gained xp to total.
             StatsGenerator.levelThresBlock.TryGetValue(level, out int xpThreshold); // get level requirement for next level.
+            // Check if player can level up
             if (this.xp > xpThreshold)
             {
                 level += 1;
