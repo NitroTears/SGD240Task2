@@ -4,10 +4,6 @@ using UnityEngine;
 
 /// <summary>
 ///  A <see langword="static"/> class with methods (functions) for initialising or randomising the stats class.
-///  
-/// TODO:
-///     Handle the assignment of extra points or xp into an existing stats of a character
-///         - this is expected to be used by NPCs leveling up to match the player.
 /// </summary>
 public static class StatsGenerator
 {
@@ -44,6 +40,10 @@ public static class StatsGenerator
         { 10, 2500}
     };
 
+    /// <summary>
+    /// Set ups the initial stats for this stats object, drawing from the statsBlock dictionary.
+    /// Adds some random variance to stats if the stats are attached to an NPC instead of a player.
+    /// </summary>
     public static void InitialStats(Stats stats, bool isPlayer)
     {
         // Enforce a level 1 or higher, and no higher then 10
@@ -51,6 +51,7 @@ public static class StatsGenerator
         else if (stats.level >= 10) { stats.level = 10; }
         // get stats from statsBlock.
         statsBlock.TryGetValue(stats.level, out List<int> initStats);
+        
         // apply stats with modifiers to the stats object.
         // If newly generated stats are less then 0, revert to original number.
         levelThresBlock.TryGetValue(stats.level - 1, out int startingXP);
@@ -63,12 +64,13 @@ public static class StatsGenerator
         }
         else
         {
-            // generate random modifers for stats.
+            // TODO: CHECK IF 'RANDOM.RANGE()' RETURNS INT OR FLOAT
+            // generate random modifers for stats. ModiRanges between -2 and 2
             var randomValues = new List<int>
             {
-                Mathf.RoundToInt(Random.Range(-2, 2)),
-                Mathf.RoundToInt(Random.Range(-2, 2)),
-                Mathf.RoundToInt(Random.Range(-2, 2))
+                Mathf.RoundToInt(Random.Range(-2, 3)),
+                Mathf.RoundToInt(Random.Range(-2, 3)),
+                Mathf.RoundToInt(Random.Range(-2, 3))
             };
             stats.style = initStats[0] + randomValues[0] < 1 ? 1 : initStats[0];
             stats.luck = initStats[1] + randomValues[1] < 1 ? 1 : initStats[1];
@@ -79,6 +81,7 @@ public static class StatsGenerator
     // This method is used to boost NPC's stats a little bit whenever the player levels up.
     public static void AssignUnusedPoints(Stats stats, int points)
     {
+        // Alternate between adding points between style and rhythm. Does not add to luck.
         for (int i = 0; i < points; i++)
         {
             if (i % 2 == 0)
