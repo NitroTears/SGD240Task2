@@ -4,10 +4,6 @@ using UnityEngine;
 
 /// <summary>
 /// Defines the dance stats of a character.
-/// 
-/// TODO: add a level up event
-/// 
-///     Nothing, but this class may be a good place to put some helper fuctions when dealing with xp to level conversion and the like.
 /// </summary>
 public class Stats : MonoBehaviour
 {

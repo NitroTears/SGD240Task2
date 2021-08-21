@@ -8,7 +8,7 @@ using UnityEngine;
 public static class StatsGenerator
 {
     /// <summary>
-    /// A dictionary of each level that characters can acheive, and the stats that are associated with them.
+    /// A dictionary of each level that characters can achieve, and the stats that are associated with them.
     /// </summary>
     public static Dictionary<int, List<int>> statsBlock = new Dictionary<int, List<int>>()
     {
@@ -25,6 +25,9 @@ public static class StatsGenerator
         { 10, new List<int>() {17, 3, 9}}
     };
 
+    /// <summary>
+    /// A dictionary of each level that characters can achieve, and the xp threshold required for leveling up.
+    /// </summary>
     public static Dictionary<int, int> levelThresBlock = new Dictionary<int, int>()
     {
     // Level Number -- Style / Luck / Rhythm
@@ -51,7 +54,7 @@ public static class StatsGenerator
         else if (stats.level >= 10) { stats.level = 10; }
         // get stats from statsBlock.
         statsBlock.TryGetValue(stats.level, out List<int> initStats);
-        
+
         // apply stats with modifiers to the stats object.
         // If newly generated stats are less then 0, revert to original number.
         levelThresBlock.TryGetValue(stats.level - 1, out int startingXP);
