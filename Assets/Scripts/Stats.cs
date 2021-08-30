@@ -43,6 +43,12 @@ public class Stats : MonoBehaviour
             Debug.Log($"{this.xp} + {xp} = {this.xp + xp}");
             this.xp += xp; // add gained xp to total.
             StatsGenerator.levelThresBlock.TryGetValue(level, out int xpThreshold); // get level requirement for next level.
+            var UIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+            if (UIManager != null)
+            {
+                Debug.Log("UI Manager Found");
+                UIManager.UpdateUI(this.xp, xpThreshold, this.level);
+            }
             // Check if player can level up
             if (this.xp > xpThreshold)
             {
@@ -53,6 +59,11 @@ public class Stats : MonoBehaviour
                 luck = NewStats[1];
                 rhythm = NewStats[2];
                 GameEvents.PlayerLevelUp(this.level);
+                if (UIManager != null)
+                {
+                    StatsGenerator.levelThresBlock.TryGetValue(level, out int newXPThreshold); // get level requirement for next level.
+                    UIManager.UpdateUI(this.xp, newXPThreshold, this.level);
+                }
             }
         }
     }

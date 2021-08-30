@@ -67,7 +67,6 @@ public static class StatsGenerator
         }
         else
         {
-            // TODO: CHECK IF 'RANDOM.RANGE()' RETURNS INT OR FLOAT
             // generate random modifers for stats. ModiRanges between -2 and 2
             var randomValues = new List<int>
             {
