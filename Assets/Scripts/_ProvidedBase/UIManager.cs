@@ -55,7 +55,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateUI(int currentXP, int xpThreshold, int level) 
     {
-        Debug.Log("Update UI Called");
+        Debug.Log("Update UI Called - " + currentXP + " " + xpThreshold + " " + level);
         playerlevelUI.text = level.ToString();
         playerCurrentXPUI.text = currentXP.ToString();
         playerXPThresUI.text = xpThreshold.ToString();
@@ -77,6 +77,5 @@ public class UIManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         playerXPUI.SetActive(false);
-
     }
 }

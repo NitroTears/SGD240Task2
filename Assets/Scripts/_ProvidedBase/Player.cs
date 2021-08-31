@@ -23,8 +23,16 @@ public class Player : MonoBehaviour
         body = GetComponent<Rigidbody>();
         controller = GetComponent<PlayerController>();
         anim = GetComponent<Animator>();
-
         myStats = GetComponent<Stats>();
+        var UIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        if (UIManager != null)
+        {
+            Debug.Log("UI Manager in Player Found");
+            StatsGenerator.levelThresBlock.TryGetValue(myStats.level, out int xpThreshold);
+            myStats = GetComponent<Stats>();
+            // Debug.Log(myStats.xp + "" + xpThreshold + "" + myStats.level);
+            // UIManager.UpdateUI(myStats.xp, xpThreshold, myStats.level);
+        }
     }
 
     private void OnEnable()

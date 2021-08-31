@@ -20,9 +20,9 @@ public class Stats : MonoBehaviour
     {
         // assign initial stats
         isPlayer = GetComponent<Player>();
-        Debug.Log("isPlayer = " + isPlayer);
+        // Debug.Log("isPlayer = " + isPlayer);
         StatsGenerator.InitialStats(this, isPlayer);
-        Debug.Log("Lv: " + level + " |  Style: " + style + " Luck: " + luck + " Rhythm: " + rhythm);
+        // Debug.Log("Lv: " + level + " |  Style: " + style + " Luck: " + luck + " Rhythm: " + rhythm);
     }
     private void OnEnable()
     {
@@ -40,7 +40,7 @@ public class Stats : MonoBehaviour
     {
         if (isPlayer) // XP and Levels are for the Player only.
         {
-            Debug.Log($"{this.xp} + {xp} = {this.xp + xp}");
+            // Debug.Log($"{this.xp} + {xp} = {this.xp + xp}");
             this.xp += xp; // add gained xp to total.
             StatsGenerator.levelThresBlock.TryGetValue(level, out int xpThreshold); // get level requirement for next level.
             var UIManager = GameObject.Find("UIManager").GetComponent<UIManager>();

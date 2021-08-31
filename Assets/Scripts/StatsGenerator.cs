@@ -58,12 +58,19 @@ public static class StatsGenerator
         // apply stats with modifiers to the stats object.
         // If newly generated stats are less then 0, revert to original number.
         levelThresBlock.TryGetValue(stats.level - 1, out int startingXP);
+        levelThresBlock.TryGetValue(stats.level, out int nextLvThres);
         stats.xp = startingXP;
         if (isPlayer)
         { // Player will not have any random modifiers in stats.
             stats.style = initStats[0];
             stats.luck = initStats[1];
             stats.rhythm = initStats[2];
+            Debug.Log(startingXP + "" + nextLvThres + "" + stats.level);
+            var UIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+            if (UIManager != null)
+            {
+                UIManager.UpdateUI(startingXP, nextLvThres, stats.level);
+            }
         }
         else
         {
