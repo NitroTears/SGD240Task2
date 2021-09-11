@@ -7,18 +7,17 @@ using UnityEngine;
 /// </summary>
 public class Stats : MonoBehaviour
 {
-    //[HideInInspector]
     public int level;
     [HideInInspector]
     public int xp;
     [HideInInspector]
-    public int style, luck, rhythm;
+    public int style, luck, rhythm; // The stats that affect the outcome of the battle
 
-    public bool isPlayer;
+    public bool isPlayer; // If the owner of these stats is a Player.
 
     private void Awake()
     {
-        // assign initial stats
+        // Assign initial stats
         isPlayer = GetComponent<Player>();
         // Debug.Log("isPlayer = " + isPlayer);
         StatsGenerator.InitialStats(this, isPlayer);
@@ -32,6 +31,7 @@ public class Stats : MonoBehaviour
     {
         GameEvents.OnPlayerGainXP -= addXpToTotal;
     }
+
     /// <summary>
     /// Addeds the given xp to the total xp of this stats object.
     /// Will increase the level if the xp threshold is met.
@@ -68,3 +68,10 @@ public class Stats : MonoBehaviour
         }
     }
 }
+
+/** NOTES
+I originally intended to use an event call for updating the UI (line 50), but for some reason it just wouldn't call it
+I tried for hours trying to find the source of the issue with no luck, so I just resorted to GameObject.Find(),
+And that worked just fine. It's pretty clean too, better then having a dependency for it.
+**/
+

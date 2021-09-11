@@ -4,7 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// Static class with method (function) to determine the outcome of a dance battle based on the player and NPC that are 
-///     dancing off against each other.
+/// dancing off against each other.
 /// </summary>
 public static class BattleHandler
 {
